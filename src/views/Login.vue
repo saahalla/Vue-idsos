@@ -20,6 +20,7 @@
               :counter="10"
               label="Password"
               required
+              @keyup.enter="username !== '' && password !== '' ? login() : ''"
               ></v-text-field>
 
               <v-btn
@@ -74,7 +75,7 @@ export default {
 
           console.log(localStorage.getItem('token'))
 
-          this.$router.push('/dashboard/users')
+          this.$router.push('/frontend/MyProfile')
 				}else{
           alert('The password you entered is incorrect.')
         }

@@ -1,10 +1,16 @@
 <template>
   <div class="posts mt-4">
     <h3 class="subheading grey--text">My Posts</h3>
+    <v-btn router to="/frontend/addPost" color="primary">
+      <v-icon>
+        mdi-note-plus
+      </v-icon>
+      <span>Add Post</span>
+    </v-btn>
 
     <v-container class="my-5">
       <!-- Card Account -->
-      <v-row wrap justify="center" class="xs12 sm6 md4 lg4">
+      <v-row wrap justify="center" class="xs12 sm6 md4 lg4" v-if="posts.length > 0">
         <v-flex xs12 sn8 md3 lg3 class="ml-4 mt-2"
             v-for="post in posts" :key="post._id">
           <v-card
@@ -32,10 +38,21 @@
                 <span>{{post.comments > 0 ? post.comments : ''}}</span>
 
               </v-btn>
+              <v-btn class="red--text" @click="deletePost(post._id)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
             </v-card-actions>
 
           </v-card>
         </v-flex>
+      </v-row>
+
+      <!-- else jika belum ada post -->
+      <v-row wrap justify="center" v-else>
+        <v-flex class="ml-4 mt-2">
+          <v-subheader>Belum ada postingan tersedia, silahkan membuat postingan terlebih dahulu</v-subheader>
+        </v-flex>
+        <!-- <AddPost /> -->
       </v-row>
 
     </v-container>
@@ -44,6 +61,7 @@
 
 <script>
 import axios from 'axios'
+// import AddPost from './AddPost.vue'
 
 export default {
   data: function(){
@@ -53,9 +71,13 @@ export default {
       followings: 0,
       posts: [],
       likes: 2,
-      comments: 3
+      comments: 3,
+      token: ''
 
     }
+  },
+  components: {
+    // AddPost
   },
   mounted() { 
     this.$nextTick(function (){
@@ -93,6 +115,7 @@ export default {
     },
     getUserPosts: function(){ 
       const token = localStorage.getItem('token')
+      this.token = token;
       const id = localStorage.getItem('userId')
       axios({
         method: 'get',
@@ -106,6 +129,27 @@ export default {
           console.log(results.data)
           
           this.posts = results.data
+
+        }else{
+          this.posts = []
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    deletePost: function(id){
+      axios({
+        method: 'get',
+        url: 'http://localhost:3001/posts/delete/' + id,
+        headers: {
+            authorization: 'Bearer '+this.token
+        }
+      }).then(response => {
+        const results = response.data;
+        if(results.status === true){
+            console.log(results.data)
+            //reload posts
+            this.getUserPosts()
 
         }
       }).catch(error => {
