@@ -85,7 +85,7 @@ export default {
           this.users = results.data
 
           this.followers = results.follow.count.followers
-          this.followings = results.follow.count.following
+          this.followings = results.follow.count.followings
           console.log({
             follow: results.follow
           })

@@ -1,23 +1,21 @@
 <template>
   <div class="posts mt-4">
     <h3 class="subheading grey--text">My Posts</h3>
-    <v-btn router to="/frontend/addPost" color="primary">
+    <v-btn router to="/frontend/MyPosts" color="primary">
       <v-icon>
-        mdi-note-plus
+        mdi-view-compact-outline
       </v-icon>
-      <span>Add Post</span>
+      <span>View All Post</span>
     </v-btn>
 
     <v-container class="my-5">
       <!-- Card Account -->
-      <v-row wrap justify="center" class="xs12 sm6 md4 lg4" v-if="posts.length > 0">
-        <v-flex xs12 sn8 md3 lg3 class="ml-4 mt-2"
-            v-for="post in posts" :key="post._id">
+      <v-row wrap justify="center" class="xs12 sm6 md6 lg6" v-if="post">
+        <v-flex class="ml-4 mt-2">
           <v-card
             class="mx-auto"
-            max-width="300"
+            max-width="600"
             outlined
-            shaped
             elevation="10"
           >
             <v-card-text>
@@ -25,8 +23,23 @@
               <div class="text--primary">
                 {{ post.content }}
               </div>
-              <div class="mt-2">
+              <div class="mt-2 blue--text">
                 {{ post.hashtag.length > 0 ? post.hashtag : '' }}
+              </div>
+              <div class="mt-4" v-if="comments.length > 0">
+                <div v-for="comment in comments" :key="comment._id">
+                  <p>
+                    {{comment.userId }}: {{comment.comment}} 
+                    <v-btn class="blue--text" x-small @click="comment.likes++">
+                      <v-icon x-small>
+                        mdi-thumb-up
+                      </v-icon>
+                      <span>{{comment.likes > 0 ? comment.likes : ''}}</span>
+                    </v-btn>
+                  </p>
+
+                  
+                </div>
               </div>
             </v-card-text>
             <v-card-actions>
@@ -39,11 +52,6 @@
               <v-btn class="blue--text" small @click="post.comments++">
                 <v-icon>mdi-comment</v-icon>
                 <span>{{post.comments > 0 ? post.comments : ''}}</span>
-
-              </v-btn>
-              <v-btn class="blue--text" small router :to="`/frontend/showPost/${post._id}`">
-                <v-icon>mdi-details</v-icon>
-                <span>Details</span>
 
               </v-btn>
               <v-btn class="red--text" small @click="deletePost(post._id)">
@@ -69,30 +77,21 @@
 
 <script>
 import axios from 'axios'
-// import AddPost from './AddPost.vue'
 
 export default {
-  data: function(){
+  data: function() {
     return {
       users: {},
-      followers: 0,
-      followings: 0,
-      posts: [],
-      likes: 2,
-      comments: 3,
-      token: ''
-
+      post: {},
+      token: localStorage.getItem('token'),
+      postId: '',
+      comments: []
     }
   },
-  components: {
-    // AddPost
-  },
-  mounted() { 
-    this.$nextTick(function (){
-      this.getUser()
-      this.getUserPosts()
-    })
-    
+  mounted() {
+    this.getUser()
+    this.showPost()
+    console.log(this.post)
   },
   methods: {
     getUser: function(){
@@ -109,7 +108,7 @@ export default {
         if(results.status === true){
           console.log(results.data)
           this.users = results.data
-
+          
           this.followers = results.follow.count.followers
           this.followings = results.follow.count.following
           console.log({
@@ -121,34 +120,13 @@ export default {
         console.log(error)
       })
     },
-    getUserPosts: function(){ 
-      const token = localStorage.getItem('token')
-      this.token = token;
-      const id = localStorage.getItem('userId')
+    showPost: function() {
+      const id = this.$route.params.id;
+      this.postId = id;
+      // alert(id)
       axios({
         method: 'get',
-        url: 'http://localhost:3001/posts/showUserPosts/'+id,
-        headers: {
-          authorization: 'Bearer '+token
-        }
-      }).then(response => {
-        const results = response.data;
-        if(results.status === true){
-          console.log(results.data)
-          
-          this.posts = results.data
-
-        }else{
-          this.posts = []
-        }
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-    deletePost: function(id){
-      axios({
-        method: 'get',
-        url: 'http://localhost:3001/posts/delete/' + id,
+        url: 'http://localhost:3001/posts/showPost/' + id,
         headers: {
             authorization: 'Bearer '+this.token
         }
@@ -156,18 +134,13 @@ export default {
         const results = response.data;
         if(results.status === true){
             console.log(results.data)
-            //reload posts
-            this.getUserPosts()
-
+            this.post = results.data
+            this.comments = results.comments
         }
       }).catch(error => {
         console.log(error)
-      })
+      })  
     }
-  },
-  computed: {
-    
   }
-
 }
 </script>

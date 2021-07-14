@@ -15,6 +15,7 @@ import Card from '../views/example/Card.vue'
 import MyProfile from '../views/example/MyProfile.vue'
 import MyPosts from '../views/example/MyPosts.vue'
 import AddPost from '../views/example/AddPost.vue'
+import ShowPost from '../views/example/ShowPost.vue'
 
 Vue.use(VueRouter)
 
@@ -83,6 +84,11 @@ const routes = [
     path: '/frontend/addPost',
     name: 'AddPost',
     component: AddPost
+  },
+  {
+    path: '/frontend/showPost/:id',
+    name: 'ShowPost',
+    component: ShowPost
   }
 ]
 

@@ -5,6 +5,7 @@
       <template v-slot:default>
         <thead>
           <tr>
+            <th class="text-left">User Id</th>
             <th class="text-left">Post Content</th>
             <th class="text-left">Hashtag</th>
             <th class="text-left">Likes</th>
@@ -19,7 +20,8 @@
             v-for="post in posts"
             :key="post._id"
           >
-            <td><div style="max-width: 400px; word-wrap: break-word">{{ post.content }}</div></td>
+            <td>{{ post.userId }}</td>
+            <td><div style="max-width: 350px; word-wrap: break-word">{{ post.content }}</div></td>
             <td>{{ post.hashtag.length > 0 ? post.hashtag : 'no hashtag' }}</td>
             <td>{{ post.likes }}</td>
             <td>{{ post.comments }}</td>
