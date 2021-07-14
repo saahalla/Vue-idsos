@@ -20,6 +20,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'Home',
+    component: MyPosts
+  },
+  {
     path: '/dashboard/users',
     name: 'Users',
     component: Users
