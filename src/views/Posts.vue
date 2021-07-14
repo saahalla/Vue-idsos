@@ -19,7 +19,7 @@
             v-for="post in posts"
             :key="post._id"
           >
-            <td>{{ post.content }}</td>
+            <td><div style="max-width: 400px; word-wrap: break-word">{{ post.content }}</div></td>
             <td>{{ post.hashtag.length > 0 ? post.hashtag : 'no hashtag' }}</td>
             <td>{{ post.likes }}</td>
             <td>{{ post.comments }}</td>

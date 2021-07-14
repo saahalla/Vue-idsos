@@ -16,6 +16,9 @@
           <v-card
             class="mx-auto"
             max-width="300"
+            outlined
+            shaped
+            elevation="10"
           >
             <v-card-text>
               <div>{{ users.name }}</div>
@@ -27,18 +30,18 @@
               </div>
             </v-card-text>
             <v-card-actions>
-              <v-btn class="blue--text" @click="post.likes++">
+              <v-btn class="blue--text" small @click="post.likes++">
                 <v-icon>
                   mdi-thumb-up
                 </v-icon>
                 <span>{{post.likes > 0 ? post.likes : ''}}</span>
               </v-btn>
-              <v-btn class="blue--text" @click="post.comments++">
+              <v-btn class="blue--text" small @click="post.comments++">
                 <v-icon>mdi-comment</v-icon>
                 <span>{{post.comments > 0 ? post.comments : ''}}</span>
 
               </v-btn>
-              <v-btn class="red--text" @click="deletePost(post._id)">
+              <v-btn class="red--text" small @click="deletePost(post._id)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-card-actions>
@@ -50,7 +53,7 @@
       <!-- else jika belum ada post -->
       <v-row wrap justify="center" v-else>
         <v-flex class="ml-4 mt-2">
-          <v-subheader>Belum ada postingan tersedia, silahkan membuat postingan terlebih dahulu</v-subheader>
+          <v-subheader>There are no posts available yet, please make a post first</v-subheader>
         </v-flex>
         <!-- <AddPost /> -->
       </v-row>

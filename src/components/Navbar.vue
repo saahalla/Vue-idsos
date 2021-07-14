@@ -115,7 +115,7 @@ export default {
             ]
           },
           { icon: 'mdi-folder', text: 'My Projects', route: '/projects', children: []},
-          { icon: 'mdi-account-box', text: 'Profile', route: '/profile', children: []},
+          { icon: 'mdi-account-box', text: 'People', route: '/people', children: []},
           { icon: 'mdi-account-plus', text: 'Register', route: '/register', children: []},
           { icon: 'mdi-login', text: 'Login', route: '/login', children: []},
         ]

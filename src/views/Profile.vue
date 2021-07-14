@@ -1,6 +1,6 @@
 <template>
   <div class="team mt-4">
-    <h3 class="subheading grey--text">Profile</h3>
+    <h3 class="subheading grey--text">Peoples</h3>
 
     <v-container class="my-5">
       <v-row wrap justify="center">
