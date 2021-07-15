@@ -45,6 +45,22 @@
           </tr>
         </tbody>
       </template> -->
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          class="mr-2 blue--text"
+          @click="editItem(item)"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          small
+          class="red--text"
+          @click="deleteUser(item._id)"
+        >
+          mdi-delete
+        </v-icon>
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -56,6 +72,7 @@ import axios from 'axios'
       return {
         users: [],
         headers: [
+          { text: 'Actions', value: 'actions', sortable: false },
           {text: 'Id', value: '_id'},
           {text: 'Username', value: 'username'},
           {text: 'Name', value: 'name'},

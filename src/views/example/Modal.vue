@@ -20,7 +20,7 @@
         
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:item.acdations="{ item }">
       <v-icon
         small
         class="mr-2"
@@ -101,67 +101,67 @@
       this.initialize()
     },
 
-    methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-          }
-        ]
-      },
+    // methods: {
+    //   initialize () {
+    //     this.desserts = [
+    //       {
+    //         name: 'Frozen Yogurt',
+    //         calories: 159,
+    //         fat: 6.0,
+    //         carbs: 24,
+    //         protein: 4.0,
+    //       },
+    //       {
+    //         name: 'Ice cream sandwich',
+    //         calories: 237,
+    //         fat: 9.0,
+    //         carbs: 37,
+    //         protein: 4.3,
+    //       }
+    //     ]
+    //   },
 
-      editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
+    //   editItem (item) {
+    //     this.editedIndex = this.desserts.indexOf(item)
+    //     this.editedItem = Object.assign({}, item)
+    //     this.dialog = true
+    //   },
 
-      deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
+    //   deleteItem (item) {
+    //     this.editedIndex = this.desserts.indexOf(item)
+    //     this.editedItem = Object.assign({}, item)
+    //     this.dialogDelete = true
+    //   },
 
-      deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
+    //   deleteItemConfirm () {
+    //     this.desserts.splice(this.editedIndex, 1)
+    //     this.closeDelete()
+    //   },
 
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
+    //   close () {
+    //     this.dialog = false
+    //     this.$nextTick(() => {
+    //       this.editedItem = Object.assign({}, this.defaultItem)
+    //       this.editedIndex = -1
+    //     })
+    //   },
 
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
+    //   closeDelete () {
+    //     this.dialogDelete = false
+    //     this.$nextTick(() => {
+    //       this.editedItem = Object.assign({}, this.defaultItem)
+    //       this.editedIndex = -1
+    //     })
+    //   },
 
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
-        this.close()
-      },
-    },
+    //   save () {
+    //     if (this.editedIndex > -1) {
+    //       Object.assign(this.desserts[this.editedIndex], this.editedItem)
+    //     } else {
+    //       this.desserts.push(this.editedItem)
+    //     }
+    //     this.close()
+    //   },
+    // },
   }
 </script>

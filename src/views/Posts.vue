@@ -45,6 +45,22 @@
           </tr>
         </tbody>
       </template> -->
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          class="mr-2 blue--text"
+          @click="editItem(item)"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          small
+          class="red--text"
+          @click="deletePost(item._id)"
+        >
+          mdi-delete
+        </v-icon>
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -56,6 +72,7 @@ import axios from 'axios'
       return {
         posts: [],
         headers: [
+          { text: 'Actions', value: 'actions', sortable: false },
           {text: 'Post Id', value: '_id'},
           {text: 'User Id', value: 'userId'},
           {text: 'Post Content', value: 'content'},
@@ -92,6 +109,7 @@ import axios from 'axios'
         })
       },
       deletePost: function(id){
+        // alert(id)
         axios({
           method: 'get',
           url: 'http://localhost:3001/posts/delete/' + id,
