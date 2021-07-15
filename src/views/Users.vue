@@ -1,8 +1,13 @@
 <template>
   <div class="mt-4">
     <v-subheader class="mb-4">Users Dashboard</v-subheader>
-    <v-simple-table> 
-      <template v-slot:default>
+    <v-data-table
+      :headers="headers"
+      :items="users"
+      :items-per-page="10"
+      class="elevation-1"
+    > 
+      <!-- <template v-slot:default>
         <thead>
           <tr>
             <th class="text-left">ID</th>
@@ -39,8 +44,8 @@
             </td>
           </tr>
         </tbody>
-      </template>
-    </v-simple-table>
+      </template> -->
+    </v-data-table>
   </div>
 </template>
 
@@ -50,6 +55,16 @@ import axios from 'axios'
     data () {
       return {
         users: [],
+        headers: [
+          {text: 'Id', value: '_id'},
+          {text: 'Username', value: 'username'},
+          {text: 'Name', value: 'name'},
+          {text: 'Email', value: 'email'},
+          {text: 'Role', value: 'role'},
+          {text: 'Password', value: 'password'},
+          {text: 'Creation Date', value: 'createAt'},
+          {text: 'Last Update', value: 'updateAt'},
+        ]
       }
     },
     mounted() {

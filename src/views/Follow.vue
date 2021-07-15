@@ -1,8 +1,13 @@
 <template>
   <div class="mt-4">
     <v-subheader class="mb-4">Follow Dashboard</v-subheader>
-    <v-simple-table> 
-      <template v-slot:default>
+    <v-data-table
+      :headers="headers"
+      :items="follows"
+      :items-per-page="10"
+      class="elevation-1"
+    > 
+      <!-- <template v-slot:default>
         <thead>
           <tr>
             <th class="text-left">User ID</th>
@@ -31,8 +36,8 @@
             </td>
           </tr>
         </tbody>
-      </template>
-    </v-simple-table>
+      </template> -->
+    </v-data-table>
   </div>
 </template>
 
@@ -42,6 +47,13 @@ import axios from 'axios'
     data () {
       return {
         follows: [],
+        headers: [
+          {text: 'Id', value: '_id'},
+          {text: 'User Id', value: 'userId'},
+          {text: 'Follower Id', value: 'followerId'},
+          {text: 'Creation Date', value: 'createAt'},
+          {text: 'Last Update', value: 'updateAt'},
+        ],
         token: ''
       }
     },

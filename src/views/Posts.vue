@@ -1,10 +1,16 @@
 <template>
   <div class="mt-4">
     <v-subheader class="mb-4">Posts Dashboard</v-subheader>
-    <v-simple-table> 
-      <template v-slot:default>
+    <v-data-table
+      :headers="headers"
+      :items="posts"
+      :items-per-page="10"
+      class="elevation-1"
+    > 
+      <!-- <template v-slot:default>
         <thead>
           <tr>
+            <th class="text-left">Post Id</th>
             <th class="text-left">User Id</th>
             <th class="text-left">Post Content</th>
             <th class="text-left">Hashtag</th>
@@ -20,6 +26,7 @@
             v-for="post in posts"
             :key="post._id"
           >
+            <td>{{ post._id }}</td>
             <td>{{ post.userId }}</td>
             <td><div style="max-width: 350px; word-wrap: break-word">{{ post.content }}</div></td>
             <td>{{ post.hashtag.length > 0 ? post.hashtag : 'no hashtag' }}</td>
@@ -37,8 +44,8 @@
             </td>
           </tr>
         </tbody>
-      </template>
-    </v-simple-table>
+      </template> -->
+    </v-data-table>
   </div>
 </template>
 
@@ -48,6 +55,16 @@ import axios from 'axios'
     data () {
       return {
         posts: [],
+        headers: [
+          {text: 'Post Id', value: '_id'},
+          {text: 'User Id', value: 'userId'},
+          {text: 'Post Content', value: 'content'},
+          {text: 'Hashtag', value: 'hashtag'},
+          {text: 'Likes', value: 'likes'},
+          {text: 'Comments', value: 'comments'},
+          {text: 'Creation Date', value: 'createAt'},
+          {text: 'Last Update', value: 'updateAt'},
+        ],
         token: ''
       }
     },
