@@ -12,6 +12,7 @@
               v-model="name"
               :counter="10"
               label="Name"
+              :rules="nameRules"
               required
               ></v-text-field>
 
@@ -20,12 +21,14 @@
               :counter="10"
               label="Username"
               required
+              :rules="usernameRules"
               ></v-text-field>
 
               <v-text-field
               v-model="email"
               label="E-mail"
               required
+              :rules="emailRules"
               ></v-text-field>
 
               <v-text-field type="password"
@@ -33,6 +36,7 @@
               :counter="10"
               label="Password"
               required
+              :rules="passwordRules"
               ></v-text-field>
 
               <v-btn
@@ -57,7 +61,21 @@ export default {
 			username: '',
 			name: '',
 			email: '',
-			password: ''
+			password: '',
+      usernameRules: [
+        value => !!value || 'Required.',
+      ],
+      passwordRules: [
+        value => !!value || 'Required.',
+        value => (value && value.length >= 4) || 'Min 4 characters',
+      ],
+      emailRules: [
+        value => !!value || 'Required.',
+        value => (value && value.length >= 8) || 'Min 8 characters',
+      ],
+      nameRules: [
+        value => !!value || 'Required.',
+      ]
 		}
 	},
 	methods: {

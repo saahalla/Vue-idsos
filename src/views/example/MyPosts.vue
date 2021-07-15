@@ -21,12 +21,30 @@
             elevation="10"
           >
             <v-card-text>
-              <div>{{ users.name }}</div>
+              <div class="text-capitalize">
+                <strong>{{ users.name }}</strong>
+              </div>
               <div class="text--primary">
                 {{ post.content }}
               </div>
-              <div class="mt-2">
-                {{ post.hashtag.length > 0 ? post.hashtag : '' }}
+              <div class="mt-2 blue--text" v-if="post.hashtag.length > 0">
+                <v-item-group multiple>
+                  <v-subheader>Tags</v-subheader>
+                  <v-item
+                    v-for="(ht, i) in post.hashtag"
+                    :key="i"
+                    v-slot="{active, toggle}"
+                  >
+                    <v-chip 
+                      active-class="blue--text"
+                      :input-value="active"
+                      @click="toggle"
+                      x-small
+                    >
+                      {{ ht }}
+                    </v-chip>
+                  </v-item>
+                </v-item-group>
               </div>
             </v-card-text>
             <v-card-actions>
@@ -60,7 +78,6 @@
         <v-flex class="ml-4 mt-2">
           <v-subheader>There are no posts available yet, please make a post first</v-subheader>
         </v-flex>
-        <!-- <AddPost /> -->
       </v-row>
 
     </v-container>
@@ -69,7 +86,6 @@
 
 <script>
 import axios from 'axios'
-// import AddPost from './AddPost.vue'
 
 export default {
   data: function(){
@@ -85,7 +101,7 @@ export default {
     }
   },
   components: {
-    // AddPost
+
   },
   mounted() { 
     this.$nextTick(function (){

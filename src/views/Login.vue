@@ -12,6 +12,7 @@
               v-model="username"
               :counter="10"
               label="Username"
+              :rules="usernameRules"
               required
               ></v-text-field>
 
@@ -20,6 +21,7 @@
               :counter="10"
               label="Password"
               required
+              :rules="passwordRules"
               @keyup.enter="username !== '' && password !== '' ? login() : ''"
               ></v-text-field>
 
@@ -43,7 +45,14 @@ export default {
   data: function(){
 		return {
 			username: '',
-			password: ''
+			password: '',
+      usernameRules: [
+        value => !!value || 'Required.',
+      ],
+      passwordRules: [
+        value => !!value || 'Required.',
+        value => (value && value.length >= 4) || 'Min 4 characters',
+      ]
 		}
 	},
 	methods: {
@@ -52,37 +61,43 @@ export default {
 				username: this.username,
 				password: this.password
 			}
-			console.log(data)
-			await axios({
-				method: 'post',
-				url: 'http://localhost:3001/users/login',
-				data: data,
+      if(this.username && this.password){
+        console.log(data)
+        await axios({
+          method: 'post',
+          url: 'http://localhost:3001/users/login',
+          data: data,
 
-			}).then(response => {
-				const status = response.data.status
+        }).then(response => {
+          const status = response.data.status
 
-				if(status === true) {
-          const token = response.data.data.token
-          const user = {
-            token,
-            login: true,
-            user: response.data.data.userId
+          if(status === true) {
+            const token = response.data.data.token
+            const user = {
+              token,
+              login: true,
+              user: response.data.data.userId
+            }
+            localStorage.setItem('user', JSON.stringify(user))
+            localStorage.setItem('token', token)
+            localStorage.setItem('login', true)
+            localStorage.setItem('userId', response.data.data.userId)
+
+            console.log(localStorage.getItem('token'))
+            try {
+              this.$router.push('/frontend/MyProfile')
+            } catch (error) {
+              console.log(error)
+            }
+            
+          }else{
+            alert('The password you entered is incorrect.')
           }
-          localStorage.setItem('user', JSON.stringify(user))
-          localStorage.setItem('token', token)
-          localStorage.setItem('login', true)
-          localStorage.setItem('userId', response.data.data.userId)
 
-          console.log(localStorage.getItem('token'))
-
-          this.$router.push('/frontend/MyProfile')
-				}else{
-          alert('The password you entered is incorrect.')
-        }
-
-			}).catch(err=>{
-				console.log(err)
-			})
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
 		}
 	},
 	mounted() {

@@ -29,6 +29,7 @@
             v-for="(child, i) in link.children"
             :key="i"
             router :to="child.route"
+            class="ml-4"
           >
             <v-list-item-icon>
               <v-icon>{{child.icon}}</v-icon>
@@ -92,11 +93,11 @@ export default {
               //   name: 'Card',
               //   route: '/frontend/card'
               // },
-              // {
-              //   icon: 'mdi-arrow-up-bold-box',
-              //   name: 'Modal',
-              //   route: '/frontend/modal'
-              // },
+              {
+                icon: 'mdi-arrow-up-bold-box',
+                name: 'Modal',
+                route: '/frontend/modal'
+              },
               {
                 icon: 'mdi-account',
                 name: 'My Profile',
