@@ -26,7 +26,7 @@
                 <v-icon small left>
                   mdi-account-arrow-left
                 </v-icon>
-                <span>Followers: {{followings}} </span>
+                <span>Followers: {{user.followers.length}} </span>
               </v-btn>
             </v-card-actions>
             <v-card-actions>
@@ -34,7 +34,7 @@
                 <v-icon small left>
                   mdi-account-arrow-right
                 </v-icon>
-                <span>Followings: {{followers}}</span>
+                <span>Followings: {{user.followings.length}}</span>
               </v-btn>
             </v-card-actions>
           </v-card>
