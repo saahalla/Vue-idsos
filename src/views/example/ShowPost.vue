@@ -51,7 +51,7 @@
                 <strong>Comments : </strong>
                 <div v-for="comment in comments" :key="comment._id">
                   <p>
-                    {{comment.userId }}: {{comment.comment}} 
+                    {{comment.userName }}: {{comment.comment}} 
                     <v-btn class="blue--text" x-small @click="comment.likes++">
                       <v-icon x-small>
                         mdi-thumb-up

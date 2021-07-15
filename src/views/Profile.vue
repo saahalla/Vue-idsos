@@ -16,12 +16,13 @@
             </v-responsive>
 
             <v-card-text>
-              <v-subheader>{{user.name}}</v-subheader>
-              <div class="grey--text">{{user.email}}</div>
+              <h4 class="blue--text">{{user.name}}</h4>
+              <div class="grey--text mt-2">username: @{{user.username}}</div>
+              <div class="grey--text">email: {{user.email}}</div>
             </v-card-text>
             
             <v-card-actions>
-              <v-btn color="light-blue">
+              <v-btn color="light-blue" small>
                 <v-icon small left>
                   mdi-account-arrow-left
                 </v-icon>
@@ -29,7 +30,7 @@
               </v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn color="light-blue">
+              <v-btn color="light-blue" small>
                 <v-icon small left>
                   mdi-account-arrow-right
                 </v-icon>
